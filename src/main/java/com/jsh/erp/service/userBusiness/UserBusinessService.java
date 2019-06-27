@@ -250,12 +250,18 @@ public class UserBusinessService {
 
     public List<UserBusiness> findAppByRoles(String roles)throws Exception{
         List<String> rolesList = StringUtil.strToStringList(roles);
+        for (int i = 0; i < rolesList.size(); i++) {
+            System.out.println("roolsList+XXXX+ "+i+" +xx+  "+rolesList.get(i));
+        }
         UserBusinessExample example = new UserBusinessExample();
         example.createCriteria().andKeyidIn(rolesList).andTypeEqualTo("RoleAPP")
                 .andDeleteFlagNotEqualTo(BusinessConstants.DELETE_FLAG_DELETED);
         List<UserBusiness> list=null;
         try{
             list=  userBusinessMapper.selectByExample(example);
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println("list+XXXX+ "+i+" +xx+  "+list.get(i));
+            }
         }catch(Exception e){
             logger.error("异常码[{}],异常提示[{}],异常[{}]",
                     ExceptionConstants.DATA_READ_FAIL_CODE,ExceptionConstants.DATA_READ_FAIL_MSG,e);

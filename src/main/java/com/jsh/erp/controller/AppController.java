@@ -49,6 +49,7 @@ public class AppController {
      */
     @GetMapping(value = "/findAppByUserId")
     public JSONObject findAppByUserId(@RequestParam("userId") String userId, HttpServletRequest request)throws Exception {
+        System.out.println("_______________+++++++++++++++userID"+userId);
         List<UserBusiness> roleList = userBusinessService.findRoleByUserId(userId);
         String roles = null;
         if(roleList!=null && roleList.size()>0 && roleList.get(0)!=null){
@@ -57,6 +58,7 @@ public class AppController {
         if(roles!=null) {
             roles = roles.replaceAll("\\]\\[",",").replaceAll("\\]","").replaceAll("\\[",""); //转为逗号隔开的
         }
+        System.out.println("_______________+++++++++++++++roles:"+roles);
         List<UserBusiness> appList = userBusinessService.findAppByRoles(roles);
         String apps = null;
         if(appList!=null && appList.size()>0 && appList.get(0)!=null){
@@ -66,6 +68,7 @@ public class AppController {
             apps = apps.replaceAll("\\]\\[",",").replaceAll("\\]","").replaceAll("\\[",""); //转为逗号隔开的
         }
         JSONObject obj = new JSONObject();
+        System.out.println("_______________+++++++++++++++apps"+apps);
         List<App> dockList = appService.findAppInIds(apps,"dock");
         JSONArray dockArray = new JSONArray();
         if (null != dockList) {
